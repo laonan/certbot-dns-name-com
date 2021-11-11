@@ -35,7 +35,7 @@ if __name__ == '__main__':
     file_name, cmd, certbot_domain, certbot_validation = sys.argv
 
     data = {
-        'domainName': 'lonelyassistant.net',
+        'domainName': certbot_domain,
         'host': '_acme-challenge',
         'fqdn': '_acme-challenge.lonelyassistant.net',
         'type': 'TXT',
