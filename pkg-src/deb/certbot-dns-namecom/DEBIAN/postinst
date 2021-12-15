@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+ACTION="$1"
+if [ "$DEBCONF_RECONFIGURE" == '1' ]; then
+    ACTION="reconfigure"
+fi
+
+
+
+# Idempotent configurations
+if [ "$ACTION" != 'triggered' ]; then
+    mkdir -p /etc
+    CONFFILE=/etc/certbot-dns-namecom.config.json
+    if ! [ -e "$CONFFILE" ]; then
+        db_get certbot-dns-namecom/username
+        username="$RET"
+        db_get certbot-dns-namecom/token
+        token="$RET"
+        (
+            echo "{"
+            echo "  \"namecom\": {"
+            echo "    \"username\": \"$username\","
+            echo "    \"token\": \"$token\","
+            echo "  }"
+            echo "}"
+        ) > "$CONFFILE"
+    fi
+fi
+
+
+
+
+# Triggers
+#if [ "$ACTION" == 'triggered' ]; then
+#fi
+

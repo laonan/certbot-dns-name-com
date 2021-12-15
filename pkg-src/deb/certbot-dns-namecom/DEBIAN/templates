@@ -1,0 +1,10 @@
+Template: certbot-dns-namecom/username
+Type: string
+Description: Please enter your name.com username:
+
+Template: certbot-dns-namecom/token
+Type: password
+Description: Please enter the auth token you've generated for name.com:
+ .
+ See https://www.name.com/support/articles/360007597874-signing-up-for-api-access
+ for more information about generating auth tokens.
