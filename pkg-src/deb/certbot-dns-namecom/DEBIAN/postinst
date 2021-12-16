@@ -28,6 +28,7 @@ if [ "$ACTION" != 'triggered' ]; then
             echo "  }"
             echo "}"
         ) > "$CONFFILE"
+        chmod 0600 "$CONFFILE"
     fi
 fi
 
