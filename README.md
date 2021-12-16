@@ -49,3 +49,8 @@ certbot certonly --manual --manual-auth-hook /usr/bin/certbot-dns-namecom.py -d 
 certbot certonly --manual --manual-auth-hook /usr/bin/certbot-dns-namecom.py -d your-domain.com --agree-tos --email you@your-domain.com
 ```
 
+Doing this will create certificate and key files in a subdirectory in `/etc/letsencrypt/live/`. See
+output of the above commands for the specific directories. These are the files you will point to
+from your webserver to facilitate an encrypted connection over HTTPS. Follow existing guides on the
+internet for enabling SSL/TLS using these files for your given webserver.
+
