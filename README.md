@@ -25,20 +25,24 @@ If you prefer to install manually, here's what you need to do (roughly):
 1. Put the `src/certbot-dns-name_com.py` script somewhere on your machine (cloning this repo to your
    home directory is sufficient, so long as you don't move it after, since certbot will use the same
    location for renewals).
-2. Have `jq` and `python3` installed.
+2. Have `python3` installed.
 3. Create a json config file somewhere. **NOTE: This file should be readable only by root, since it
    will contain sensitive credentials for your DNS service.** The default location is
-   `/etc/certbot-dns-namecom.config.json`, but you can technically put it anywhere. If you do use a
-   location other than the default one for your config file, you'll have to create a wrapper script
-   that sets the `CERTBOT_DNS_NAMECOM_CONFIG` environment variable like so:
+   `/etc/certbot-dns-namecom.config.json`, but you can technically put it anywhere.
+4. (Optional) If you do use a location other than the default one for your config file, you'll have
+   to create a wrapper script that sets the `CERTBOT_DNS_NAMECOM_CONFIG` environment variable like
+   so:
 
-```sh
-#!/bin/bash
+   ```sh
+   #!/bin/bash
+   
+   export CERTBOT_DNS_NAMECOM_CONFIG=/path/to/your/config.json  
+   /usr/bin/certbot-dns-namecom.py $@
+   ```
 
-export CERTBOT_DNS_NAMECOM_CONFIG=/path/to/your/config.json  
-/usr/bin/certbot-dns-namecom.py
-```
-
+   In this case, if this file were saved at, e.g., `/home/you/certbot-dns.sh`, you would have to
+   ensure that file is executable and then use that path instead of the default path in the code
+   snippet below.
 
 ## Usage
 
