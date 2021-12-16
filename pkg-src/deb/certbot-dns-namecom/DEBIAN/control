@@ -1,0 +1,10 @@
+Package: certbot-dns-namecom
+Version: ::VERSION::
+Section: free
+Priority: optional
+Architecture: all
+Depends: python3, debconf
+Installed-Size: 0
+Maintainer: Kael Shipman <kael.shipman@gmail.com>
+Description: A small script that uses the name.com API to update DNS records for certificate verification by certbot
+

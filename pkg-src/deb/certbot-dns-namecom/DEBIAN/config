@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. /usr/share/debconf/confmodule
+
+db_input high certbot-dns-namecom/username || true
+db_input high certbot-dns-namecom/token || true
+db_go || true
+
