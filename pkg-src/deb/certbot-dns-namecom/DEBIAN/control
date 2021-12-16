@@ -3,7 +3,7 @@ Version: ::VERSION::
 Section: free
 Priority: optional
 Architecture: all
-Depends: bash (>= 4.3), jq, python3, debconf
+Depends: python3, debconf
 Installed-Size: 0
 Maintainer: Kael Shipman <kael.shipman@gmail.com>
 Description: A small script that uses the name.com API to update DNS records for certificate verification by certbot
