@@ -83,7 +83,7 @@ if __name__ == '__main__':
     data = {
         'domainName': certbot_domain,
         'host': host,
-        'fqdn': '_acme-challenge.lonelyassistant.net',
+        'fqdn': f'_acme-challenge.{certbot_domain}',
         'type': 'TXT',
         'answer': certbot_validation,
         'ttl': 300,
