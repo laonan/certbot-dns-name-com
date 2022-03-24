@@ -13,6 +13,12 @@ class NameComDNS:
         self.token = token
         self.domain_name = domain_name
 
+    def get_base_domain(self):
+        url = 'https://api.name.com/v4/domains/%s' % self.domain_name
+        r = requests.get(url, auth=(self.username, self.token))
+
+        return r.json()['domainName']
+
     def list_records(self):
         url = 'https://api.name.com/v4/domains/%s/records' % self.domain_name
         r = requests.get(url, auth=(self.username, self.token))
@@ -49,16 +55,6 @@ if __name__ == '__main__':
     if (certbot_validation is None):
         raise Exception('Expecting "CERTBOT_VALIDATION" environment variable to be set, but it wasn\'t.')
 
-    # Create data object for API
-    data = {
-        'domainName': certbot_domain,
-        'host': '_acme-challenge',
-        'fqdn': '_acme-challenge.lonelyassistant.net',
-        'type': 'TXT',
-        'answer': certbot_validation,
-        'ttl': 300,
-    }
-
     # Get name.com credentials from config and validate
     conffile = os.environ.get('CERTBOT_DNS_NAMECOM_CONFIG') or "/etc/certbot-dns-namecom.config.json"
     if (not os.path.exists(conffile)):
@@ -78,6 +74,20 @@ if __name__ == '__main__':
 
     # Instantiate our class
     ncd = NameComDNS(username, token, certbot_domain)
+
+    base_domain = ncd.get_base_domain()
+    subdomain = certbot_domain.partition(base_domain)[0].rstrip('.')
+    host = ("_acme-challenge." + subdomain).rstrip('.')
+
+    # Create data object for API
+    data = {
+        'domainName': certbot_domain,
+        'host': host,
+        'fqdn': '_acme-challenge.lonelyassistant.net',
+        'type': 'TXT',
+        'answer': certbot_validation,
+        'ttl': 300,
+    }
 
     if cmd == 'add':
         # If we're adding a record, create it
