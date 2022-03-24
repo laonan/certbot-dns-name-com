@@ -4,7 +4,7 @@ Certbot DNS Auth Plugin for name.com
 There are a number of blog posts on the internet (including [certbot's own](https://certbot.eff.org/faq#does-let-s-encrypt-issue-wildcard-certificates))
 indicating that you can use DNS to obtain certificates, but few actual instructions for doing so.
 This repo attempts to provide both better end-to-end instructions for obtaining certificates based
-on DNS authentication (below) and also a script (written by [@laonon](https://github.com/laonon))
+on DNS authentication (below) and also a script (written by [@laonan](https://github.com/laonan))
 for doing so.
 
 
