@@ -37,13 +37,16 @@ class NameComDNS:
         url = 'https://api.name.com/v4/domains/%s/records/%s' % (self.domain_name, record_id)
         r = requests.delete(url, data=data, auth=(self.username, self.token))
 
-        print(r.json())
+        if r.status_code == 200 or r.status_code == 201:
+            print("Record %s successfully deleted" % (record_id))
+        else:
+            raise Exception('name.com API %s Error: %s' % (r.status_code, r.content))
 
 
 if __name__ == '__main__':
 
     # Get command line arguments
-    cmd = sys.argv[0]
+    cmd = sys.argv[1]
     if (cmd != "clean"):
         cmd = "add"
 
@@ -100,8 +103,9 @@ if __name__ == '__main__':
         j = ncd.list_records()
 
         for record in j['records']:
-            if record['host'] == '_acme-challenge':
-                ncd.del_record(record['id'])
+            if 'host' in record:
+                if record['host'] == '_acme-challenge':
+                    ncd.del_record(record['id'])
 
     if (waitsec != 0):
         print("Waiting %s seconds for DNS to propagate" % waitsec)
