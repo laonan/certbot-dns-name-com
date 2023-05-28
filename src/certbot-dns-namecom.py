@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
         for record in j['records']:
             if 'host' in record:
-                if record['host'] == '_acme-challenge':
+                if record['host'].startswith('_acme-challenge') and record['answer'] == certbot_validation:
                     ncd.del_record(record['id'])
 
     if (waitsec != 0):
